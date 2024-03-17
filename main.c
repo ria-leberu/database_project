@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define A_MACRO 123
 #undef A_MACRO 
@@ -28,22 +29,36 @@ Good practice to #define a variable constant i.e. #define MAX_IDS 32
 
 */
 
+int initialize_employee_id(void)
+{
+    static int id = 0;
+    id++;
+    return id;
+}
+
 int main()
 {
-    // printf("Hello world!\n");
 
-    // char my_str[] = {'h', 'e', 'l', 'l', 'o'};
-
-    struct __attribute__((__packed__)) my_struct {
-        int i;
+    struct __attribute__((__packed__)) employee_entry {
         char c;
+        int i;
     };
 
-    struct my_struct str;
+    struct employee_entry *richard = malloc(sizeof(struct employee_entry));
+    richard->c = 'r';
+    richard->i = initialize_employee_id();
+
+    struct employee_entry *emily = malloc(sizeof(struct employee_entry));
+    emily->c = 'e';
+    emily->i = initialize_employee_id();
 
 
-    // printf("%s\n", my_struct);
-    printf("%ld\n", sizeof(str));
+
+    printf("c = %c i = %d \n", richard->c, richard->i);
+    printf("c = %c i = %d \n", emily->c, emily->i);
+
+    free(richard);
+    free(emily);
 
     return 0;
 }
