@@ -32,8 +32,8 @@ Good practice to #define a variable constant i.e. #define MAX_IDS 32
 int initialize_employee_id(void)
 {
     static int id = 0;
-    id++;
-    return id;
+    // id++;
+    return id++;
 }
 
 int main()
@@ -45,6 +45,13 @@ int main()
     };
 
     struct employee_entry *richard = malloc(sizeof(struct employee_entry));
+    // struct employee_entry *richard = malloc(0);
+
+    if (richard == NULL) {
+        printf("Allocator failed.\n");
+        return -1;
+    }
+
     richard->c = 'r';
     richard->i = initialize_employee_id();
 
@@ -58,7 +65,9 @@ int main()
     printf("c = %c i = %d \n", emily->c, emily->i);
 
     free(richard);
+    richard = NULL;
     free(emily);
+    emily = NULL;
 
     return 0;
 }
