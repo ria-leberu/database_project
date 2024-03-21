@@ -1,3 +1,3 @@
 # database_project
 
-Test file
+Project based on lowlevel.academy C Programming Course.
